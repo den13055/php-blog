@@ -1,109 +1,109 @@
 # 📝 Basa Blog
 
-Простой блог на чистом PHP и MySQL для изучения основ веб-разработки.  
-Реализована регистрация пользователей, авторизация через сессии, создание и управление статьями.
+A simple blog using pure PHP and MySQL for learning the basics of web development.
+Implemented user registration, session authentication, and article creation and management.
 
 ![PHP](https://img.shields.io/badge/php-%5E7.4-blue)
 ![MySQL](https://img.shields.io/badge/mysql-%5E5.7-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## ✨ Возможности
+## ✨ Features
 
-- 📝 Регистрация нового пользователя
-- 🔐 Вход / выход из системы
-- 👤 Просмотр профиля
-- ➕ Добавление статьи
-- 📃 Список статей (последние 9)
-- ✏️ Редактирование и удаление статей
-- 🔀 Простая маршрутизация через параметр `?act=...`
+- 📝 New User Registration
+- 🔐 Login/Logout
+- 👤 View Profile
+- ➕ Add Article
+- 📃 Article List (Latest 9)
+- ✏️ Edit and Delete Articles
+- 🔀 Easy Routing via the `?act=...` Parameter
 
-## 📋 Требования
+## 📋 Requirements
 
-- 🐘 PHP 7.4 или выше
-- 🗄️ MySQL 5.7 или выше
-- 🌐 Веб-сервер (Apache, Nginx) с поддержкой PHP и сессий
+- 🐘 PHP 7.4 or higher
+- 🗄️ MySQL 5.7 or higher
+- 🌐 Web server (Apache, Nginx) with PHP and session support
 
-## ⚙️ Установка
+## ⚙️ Installation
 
-1. Клонируйте репозиторий в папку веб-сервера:
-   ```bash
-   git clone https://github.com/username/basa-blog.git
-   cd basa-blog
-   ```
+1. Clone the repository to your web server folder:
+```bash
+git clone https://github.com/username/basa-blog.git
+cd basa-blog
+```
 
-2. Настройте подключение к базе данных в файле `config.php`:
-   ```php
-   const DB_HOST = "localhost";
-   const DB_USER = "root";
-   const DB_PASS = "";
-   const DB_NAME = "basa_blog";
-   ```
+2. Configure the database connection in the `config.php` file:
+```php
+const DB_HOST = "localhost";
+const DB_USER = "root";
+const DB_PASS = "";
+const DB_NAME = "basa_blog";
+```
 
-3. Создайте базу данных MySQL и таблицы. Пример минимальной структуры:
-   ```sql
-   CREATE DATABASE IF NOT EXISTS basa_blog;
-   USE basa_blog;
+3. Create a MySQL database and tables. Example of a minimal structure:
+```sql
+CREATE DATABASE IF NOT EXISTS basa_blog;
+USE basa_blog;
 
-   CREATE TABLE user (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       username VARCHAR(50) NOT NULL UNIQUE,
-       password VARCHAR(255) NOT NULL,
-       email VARCHAR(100) NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
+CREATE TABLE user (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL UNIQUE,
+password VARCHAR(255) NOT NULL,
+email VARCHAR(100) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-   CREATE TABLE article (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       title VARCHAR(255) NOT NULL,
-       content TEXT NOT NULL,
-       user_id INT NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       FOREIGN KEY (user_id) REFERENCES user(id)
-   );
-   ```
+CREATE TABLE article (
+id INT AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(255) NOT NULL,
+content TEXT NOT NULL,
+user_id INT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES user(id)
+);
+```
 
-4. Убедитесь, что веб-сервер имеет права на чтение всех файлов и запись в необходимые директории (если в дальнейшем добавлена загрузка изображений).
+4. Ensure that the web server has read access to all files and write access to the required directories (if image uploads are added later).
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 basa-blog/
-├── config.php              # Конфигурация БД
-├── Index.php               # Точка входа, маршрутизация, загрузка главной страницы
+├── config.php # Database Configuration
+├── Index.php # Entry Point, Routing, Home Page Loading
 ├── functions/
-│   └── helpers.php         # Вспомогательные функции
-├── action/                 # Обработчики действий
-│   ├── register.php
-│   ├── login.php
-│   ├── logout.php
-│   ├── profile.php
-│   ├── add.php
-│   ├── articles.php
-│   ├── edit.php
-│   └── delete.php
+│ └── helpers.php # Helper Functions
+├── action/ # Action Handlers
+│ ├── register.php
+│ ├── login.php
+│ ├── logout.php
+│ ├── profile.php
+│ ├── add.php
+│ ├── articles.php
+│ ├── edit.php
+│ └── delete.php
 └── templates/
-    └── index.php           # Шаблон главной страницы
+└── index.php # Main Page Template
 ```
 
-## 🚀 Использование
+## 🚀 Usage
 
-Доступ к различным разделам осуществляется через GET-параметр `act`:
+Different sections are accessed via the `act` GET parameter:
 
-| Действие        | URL                      |
-|-----------------|--------------------------|
-| 📝 Регистрация     | `index.php?act=register` |
-| 🔑 Вход            | `index.php?act=login`    |
-| 👤 Профиль         | `index.php?act=profile`  |
-| ➕ Добавить статью | `index.php?act=add`      |
-| 📄 Все статьи      | `index.php?act=articles` |
-| ✏️ Редактировать   | `index.php?act=edit`     |
-| 🗑️ Удалить         | `index.php?act=delete`   |
-| 🚪 Выйти           | `index.php?act=logout`   |
+| Action | URL |
+|-----------------|-------------------------|
+| 📝 Register | `index.php?act=register` |
+| 🔑 Login | `index.php?act=login` |
+| 👤 Profile | `index.php?act=profile` |
+| ➕ Add Article | `index.php?act=add` |
+| 📄 All Articles | `index.php?act=articles` |
+| ✏️ Edit | `index.php?act=edit` |
+| 🗑️ Delete | `index.php?act=delete` |
+| 🚪 Logout | `index.php?act=logout` |
 
-Главная страница отображает 9 последних статей.
+The main page displays the 9 most recent articles.
 
-Проект создан исключительно в учебных целях.
+This project is created for educational purposes only.
 
-## 📄 Лицензия
+## 📄 License
 
 MIT License
